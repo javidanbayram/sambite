@@ -1,0 +1,621 @@
+/* ============================================================
+   Sambite – Global Design System
+   ============================================================ */
+
+/* ---------- Reset & Base ---------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Brand Colors */
+  --emerald:        #10b981;
+  --teal:           #0d9488;
+  --emerald-light:  #34d399;
+  --teal-dark:      #0f766e;
+
+  /* Neutrals */
+  --bg:             #0a0a0a;
+  --bg-elevated:    #111111;
+  --bg-card:        rgba(255, 255, 255, 0.04);
+  --border:         rgba(255, 255, 255, 0.09);
+  --border-hover:   rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text-primary:   #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted:     #525252;
+
+  /* Gradients */
+  --grad-brand:     linear-gradient(135deg, var(--emerald) 0%, var(--teal) 100%);
+  --grad-glow:      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16,185,129,0.18), transparent);
+  --grad-card:      linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+
+  /* Spacing */
+  --spacing-xs:  0.5rem;
+  --spacing-sm:  0.75rem;
+  --spacing-md:  1.25rem;
+  --spacing-lg:  2rem;
+  --spacing-xl:  3rem;
+  --spacing-2xl: 5rem;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
+
+  /* Radii */
+  --radius-sm:  0.5rem;
+  --radius-md:  1rem;
+  --radius-lg:  1.5rem;
+  --radius-xl:  2rem;
+
+  /* Shadows */
+  --shadow-card:  0 8px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.06) inset;
+  --shadow-glow:  0 0 40px rgba(16,185,129,0.2), 0 0 80px rgba(13,148,136,0.1);
+  --shadow-btn:   0 4px 24px rgba(16,185,129,0.35);
+  --shadow-btn-hover: 0 8px 40px rgba(16,185,129,0.5);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ---------- Background FX --------------------------------- */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-fx::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: glow-pulse 8s ease-in-out infinite alternate;
+}
+
+.bg-fx::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(13,148,136,0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: glow-pulse 10s ease-in-out 2s infinite alternate;
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  to   { opacity: 1;   transform: translateX(-50%) scale(1.1); }
+}
+
+/* ---------- Page Wrapper ---------------------------------- */
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Header ---------------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10,10,10,0.7);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.header-logo-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--grad-brand);
+  flex-shrink: 0;
+}
+
+.header-logo-name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.header-badge {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 100px;
+  padding: 0.2rem 0.65rem;
+  background: rgba(16,185,129,0.06);
+}
+
+/* ---------- Main Layout ----------------------------------- */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  gap: var(--spacing-xl);
+}
+
+/* ---------- Hero Section ---------------------------------- */
+.hero {
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 1.25rem;
+}
+
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--emerald);
+  animation: dot-blink 2s ease-in-out infinite;
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.hero-title-accent {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+.hero-tagline {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+}
+
+/* ---------- Card ------------------------------------------ */
+.card {
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 720px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+}
+
+/* ---------- Form ------------------------------------------ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  font-weight: 400;
+}
+
+.textarea-wrapper {
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.97rem;
+  line-height: 1.7;
+  resize: vertical;
+  min-height: 110px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea:focus {
+  border-color: rgba(16,185,129,0.5);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.08), 0 0 20px rgba(16,185,129,0.05);
+  background: rgba(16,185,129,0.02);
+}
+
+.textarea.error {
+  border-color: rgba(239,68,68,0.5);
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #f87171;
+  margin-top: 0.35rem;
+  font-weight: 500;
+  animation: slide-in 0.2s ease;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Button ---------------------------------------- */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2rem;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--grad-brand);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------- Spinner --------------------------------------- */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Recipe Card ----------------------------------- */
+.recipe-card {
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(145deg, rgba(16,185,129,0.05) 0%, rgba(13,148,136,0.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card), 0 0 60px rgba(16,185,129,0.06);
+  width: 100%;
+  max-width: 720px;
+  overflow: hidden;
+  animation: recipe-appear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes recipe-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.recipe-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem var(--spacing-xl);
+  border-bottom: 1px solid rgba(16,185,129,0.12);
+  background: linear-gradient(90deg, rgba(16,185,129,0.08) 0%, transparent 100%);
+}
+
+.recipe-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--grad-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+}
+
+.recipe-card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.recipe-card-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--emerald);
+}
+
+.recipe-card-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.recipe-body {
+  padding: var(--spacing-xl);
+}
+
+.recipe-content {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.recipe-content h1,
+.recipe-content h2,
+.recipe-content h3 {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* ---------- Divider --------------------------------------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-text {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Footer ---------------------------------------- */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.footer a {
+  color: var(--emerald);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Server Error ---------------------------------- */
+.server-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(239,68,68,0.07);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--radius-md);
+  color: #fca5a5;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  animation: slide-in 0.25s ease;
+}
+
+.server-error-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+/* ---------- Ingredient chips ------------------------------ */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.chip {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: var(--emerald-light);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  user-select: none;
+}
+
+.chip:hover {
+  background: rgba(16,185,129,0.14);
+  border-color: rgba(16,185,129,0.4);
+  transform: translateY(-1px);
+}
+
+/* ---------- Responsive ------------------------------------ */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.25rem;
+  }
+
+  .main {
+    padding: var(--spacing-xl) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  .card {
+    padding: var(--spacing-lg);
+  }
+
+  .recipe-card-header {
+    padding: 1.25rem var(--spacing-lg);
+  }
+
+  .recipe-body {
+    padding: var(--spacing-lg);
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .recipe-body {
+    padding: 1.25rem;
+  }
+}

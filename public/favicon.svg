@@ -1,0 +1,22 @@
+/* ──────────────────────────────────────────────────────
+   public/favicon.svg  –  Sambite icon mark (inline SVG)
+   Used as favicon via <link rel="icon" href="/favicon.svg">
+────────────────────────────────────────────────────── */
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0a0a0a"/>
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <!-- Fork tines -->
+  <line x1="22" y1="12" x2="22" y2="26" stroke="url(#brandGrad)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="27" y1="12" x2="27" y2="26" stroke="url(#brandGrad)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="32" y1="12" x2="32" y2="26" stroke="url(#brandGrad)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Fork neck -->
+  <path d="M22 26 Q27 32 27 40 L27 52" stroke="url(#brandGrad)" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Leaf -->
+  <path d="M38 14 C48 14 52 24 46 32 C40 40 34 36 34 28 C34 20 38 14 38 14Z" fill="url(#brandGrad)" opacity="0.9"/>
+  <path d="M38 14 C42 24 44 32 46 32" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none" stroke-linecap="round"/>
+</svg>
