@@ -14,6 +14,8 @@
   --emerald:        #8CB369; /* Muted Olive */
   --teal:           #5B8E7D; /* Jungle Teal */
   --emerald-light:  #F4E285; /* Light Gold */
+  --sandy:          #F4A259; /* Sandy Brown */
+  --brick:          #BC4B51; /* Blushed Brick */
   --teal-dark:      #0f766e;
 
   /* Neutrals (Light Mode) */
@@ -29,7 +31,7 @@
   --text-muted:     #888888;
 
   /* Gradients */
-  --grad-brand:     linear-gradient(135deg, var(--emerald) 0%, var(--teal) 100%);
+  --grad-brand:     linear-gradient(135deg, var(--sandy) 0%, var(--teal) 100%);
   --grad-glow:      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(140, 179, 105, 0.25), transparent);
   --grad-card:      linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
 
@@ -674,7 +676,7 @@ body {
   font-size: 2.4rem;
   font-weight: 700;
   font-family: var(--font-serif);
-  background: linear-gradient(135deg, #a8d878 0%, #6bbfa0 100%);
+  background: linear-gradient(135deg, var(--sandy) 0%, var(--teal) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -730,17 +732,17 @@ body {
 }
 
 .impact-badge.unlocked .impact-badge-icon {
-  background: linear-gradient(135deg, #a8d878 0%, #5B8E7D 100%);
+  background: linear-gradient(135deg, var(--sandy) 0%, var(--brick) 100%);
   border-color: transparent;
   box-shadow:
-    0 0 0 4px rgba(140, 179, 105, 0.15),
-    0 8px 24px rgba(140, 179, 105, 0.35);
+    0 0 0 4px rgba(244, 162, 89, 0.15),
+    0 8px 24px rgba(244, 162, 89, 0.35);
   animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(140,179,105,0.15), 0 8px 24px rgba(140,179,105,0.35); }
-  50%       { box-shadow: 0 0 0 8px rgba(140,179,105,0.08), 0 8px 32px rgba(140,179,105,0.5); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(244,162,89,0.15), 0 8px 24px rgba(188,75,81,0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(244,162,89,0.08), 0 8px 32px rgba(188,75,81,0.5); }
 }
 
 .impact-badge-name {
@@ -752,7 +754,7 @@ body {
 }
 
 .impact-badge.unlocked .impact-badge-name {
-  color: var(--emerald);
+  color: var(--brick);
 }
 
 /* ── Global Mission Banner ────────────────────────────── */
@@ -773,7 +775,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(140,179,105,0.12), transparent);
+  background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(244, 162, 89, 0.12), transparent);
   pointer-events: none;
 }
 
@@ -787,7 +789,7 @@ body {
   font-size: 1.6rem;
   font-weight: 700;
   font-family: var(--font-serif);
-  background: linear-gradient(135deg, #a8d878 0%, #6bbfa0 100%);
+  background: linear-gradient(135deg, var(--emerald) 0%, var(--teal) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
