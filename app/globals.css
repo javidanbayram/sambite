@@ -257,6 +257,34 @@ body {
   display: block;
 }
 
+.header-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-link.active {
+  color: var(--teal-dark);
+  background: rgba(140, 179, 105, 0.15);
+  font-weight: 600;
+}
+
 .header-badge {
   font-family: var(--font-sans);
   font-size: 0.65rem;

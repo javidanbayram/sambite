@@ -386,8 +386,9 @@ export default function HomePage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sambitelogo.png" alt="Sambite" className="header-logo-img" />
           </a>
-          <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-            <a href="/about" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Haqqımızda</a>
+          <nav className="header-nav">
+            <a href="/" className="nav-link active">Ana Səhifə</a>
+            <a href="/about" className="nav-link">Haqqımızda</a>
           </nav>
         </header>
 
