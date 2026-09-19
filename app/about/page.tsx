@@ -27,22 +27,6 @@ export default function AboutPage() {
             </p>
           </section>
 
-          <section className="card" style={{ padding: '3rem' }}>
-            <h2 className="hero-title" style={{ fontSize: '2rem', marginBottom: '2rem' }}>Komandamız</h2>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <div style={{ padding: '1.5rem', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)' }}>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Cavidan Bayramlı</h3>
-                <p style={{ color: 'var(--emerald)', fontWeight: 500, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co-founder</p>
-              </div>
-
-              <div style={{ padding: '1.5rem', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)' }}>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Səma İsmayılova</h3>
-                <p style={{ color: 'var(--emerald)', fontWeight: 500, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co-founder</p>
-              </div>
-            </div>
-          </section>
-
         </main>
 
         {/* ── Footer ── */}
