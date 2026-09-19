@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenAI } from '@google/genai'
 
+export const maxDuration = 60; // Allow more time on Vercel to prevent generation cutoffs
 /* ─────────────────────────────────────────────────────────
    POST /api/recipe
    Body: { ingredients: string }
@@ -69,12 +70,12 @@ Hazırlıq: [X] dəq · Bişirmə: [Y] dəq · Cəmi: [Z] dəq
 
 Be warm, precise, and inspiring. Make the user feel like a professional chef.`
 
-  // ── 4. Call Google Gemini 2.5 Flash ─────────────────
+  // ── 4. Call Google Gemini 1.5 Flash ─────────────────
   try {
     const ai = new GoogleGenAI({ apiKey })
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         temperature: 0.85,
