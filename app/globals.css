@@ -626,9 +626,10 @@ body {
   max-width: 720px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: 1.25rem;
 }
 
+/* ── Stat Cards ───────────────────────────────────────── */
 .impact-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -636,33 +637,63 @@ body {
 }
 
 .impact-stat-card {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(140, 179, 105, 0.2);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.impact-stat-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140, 179, 105, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.impact-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .impact-stat-value {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: var(--teal);
   font-family: var(--font-serif);
-  margin-bottom: 0.25rem;
+  background: linear-gradient(135deg, #a8d878 0%, #6bbfa0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+  line-height: 1;
 }
 
 .impact-stat-label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
+/* ── Badges Card ──────────────────────────────────────── */
 .badges-container {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -671,64 +702,106 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  width: 100px;
-  opacity: 0.4;
-  filter: grayscale(100%);
-  transition: all 0.4s ease;
+  gap: 0.6rem;
+  width: 110px;
+  opacity: 0.3;
+  filter: grayscale(100%) brightness(0.6);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
 }
 
 .impact-badge.unlocked {
   opacity: 1;
-  filter: grayscale(0%);
+  filter: grayscale(0%) brightness(1);
 }
 
 .impact-badge-icon {
-  width: 60px;
-  height: 60px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  background: var(--bg-elevated);
-  border: 2px solid var(--border);
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-size: 1.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .impact-badge.unlocked .impact-badge-icon {
-  background: linear-gradient(135deg, var(--emerald-light) 0%, var(--emerald) 100%);
+  background: linear-gradient(135deg, #a8d878 0%, #5B8E7D 100%);
   border-color: transparent;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(140, 179, 105, 0.4);
+  box-shadow:
+    0 0 0 4px rgba(140, 179, 105, 0.15),
+    0 8px 24px rgba(140, 179, 105, 0.35);
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(140,179,105,0.15), 0 8px 24px rgba(140,179,105,0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(140,179,105,0.08), 0 8px 32px rgba(140,179,105,0.5); }
 }
 
 .impact-badge-name {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-align: center;
   color: var(--text-muted);
+  line-height: 1.3;
 }
 
 .impact-badge.unlocked .impact-badge-name {
-  color: var(--teal);
+  color: var(--emerald);
 }
 
+/* ── Global Mission Banner ────────────────────────────── */
 .global-mission-banner {
-  background: linear-gradient(90deg, rgba(140, 179, 105, 0.1) 0%, rgba(91, 142, 125, 0.1) 100%);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1c18 100%);
   border: 1px solid rgba(140, 179, 105, 0.2);
-  border-radius: var(--radius-md);
-  padding: 1rem;
+  border-radius: 1.25rem;
+  padding: 1.5rem 2rem;
   text-align: center;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.global-mission-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(140,179,105,0.12), transparent);
+  pointer-events: none;
+}
+
+.global-mission-banner .impact-stat-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
 }
 
 .global-mission-value {
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: var(--emerald);
-  margin-top: 0.25rem;
   font-family: var(--font-serif);
+  background: linear-gradient(135deg, #a8d878 0%, #6bbfa0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0.35rem;
+  letter-spacing: -0.01em;
 }
+
+/* Achievements card override for dark look */
+.impact-tracker .card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8faf6 100%);
+  border: 1px solid rgba(140, 179, 105, 0.15);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
 
 /* ============================================================
    Pantry Staples Selector
