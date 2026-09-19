@@ -117,7 +117,7 @@ function RecipeRenderer({ text }: { text: string }) {
 
     if (isSectionNum) {
       return (
-        <p key={i} style={{ fontWeight: 700, color: 'var(--emerald-light)', margin: '1.2rem 0 0.25rem', fontSize: '0.85rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+        <p key={i} style={{ fontWeight: 700, color: '#bc4b51', margin: '1.2rem 0 0.25rem', fontSize: '0.85rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
           {line.trim()}
         </p>
       )
