@@ -145,26 +145,11 @@ body {
   text-decoration: none;
 }
 
-.header-logo-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--grad-brand);
-  flex-shrink: 0;
-}
-
-.header-logo-name {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  background: var(--grad-brand);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.02em;
+.header-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .header-badge {

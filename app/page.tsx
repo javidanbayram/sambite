@@ -361,10 +361,8 @@ export default function HomePage() {
         {/* ── Header ── */}
         <header className="header" role="banner">
           <a href="/" className="header-logo" aria-label="Sambite home">
-            <div className="header-logo-icon" aria-hidden="true">
-              <IconForkLeaf />
-            </div>
-            <span className="header-logo-name">Sambite</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="Sambite" className="header-logo-img" />
           </a>
           <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
             <a href="/about" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Haqqımızda</a>
