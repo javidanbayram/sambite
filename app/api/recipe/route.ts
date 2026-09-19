@@ -70,12 +70,12 @@ Hazırlıq: [X] dəq · Bişirmə: [Y] dəq · Cəmi: [Z] dəq
 
 Be warm, precise, and inspiring. Make the user feel like a professional chef.`
 
-  // ── 4. Call Google Gemini 1.5 Flash ─────────────────
+  // ── 4. Call Google Gemini 3.6 Flash ─────────────────
   try {
     const ai = new GoogleGenAI({ apiKey })
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-3.6-flash',
       contents: prompt,
       config: {
         temperature: 0.85,
