@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 
 /* -------------------------------------------------------
    Suggested ingredient chips for quick demo
@@ -123,6 +123,26 @@ export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const recipeRef = useRef<HTMLDivElement>(null)
 
+  // Impact Tracker State
+  const [recipesGenerated, setRecipesGenerated] = useState(0)
+  const [globalImpact, setGlobalImpact] = useState(12450)
+
+  // Load local tracker data
+  useEffect(() => {
+    const saved = localStorage.getItem('sambite_recipes_count')
+    if (saved) {
+      setRecipesGenerated(parseInt(saved, 10))
+    }
+  }, [])
+
+  // Simulated global ticker
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGlobalImpact(prev => prev + Math.floor(Math.random() * 3))
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   const handleChipClick = useCallback((combo: string) => {
     setIngredients(combo)
     setFieldError('')
@@ -163,6 +183,12 @@ export default function HomePage() {
       }
 
       setRecipe(data.recipe)
+
+      // Update Impact Stats
+      const newCount = recipesGenerated + 1
+      setRecipesGenerated(newCount)
+      localStorage.setItem('sambite_recipes_count', newCount.toString())
+      setGlobalImpact(prev => prev + 1)
 
       // Scroll to recipe
       setTimeout(() => {
@@ -324,6 +350,49 @@ export default function HomePage() {
               </section>
             </>
           )}
+
+          {/* Impact Tracker */}
+          <section className="impact-tracker" aria-labelledby="impact-title">
+            <div className="divider" aria-hidden="true" style={{ marginTop: '1rem' }}>
+              <div className="divider-line" />
+              <span className="divider-text" id="impact-title">Ekoloji Təsiriniz</span>
+              <div className="divider-line" />
+            </div>
+
+            <div className="impact-stats-grid">
+              <div className="impact-stat-card">
+                <div className="impact-stat-value">{(recipesGenerated * 0.3).toFixed(1)} <span style={{fontSize: '1rem'}}>kq</span></div>
+                <div className="impact-stat-label">Xilas Edilən Qida</div>
+              </div>
+              <div className="impact-stat-card">
+                <div className="impact-stat-value">{(recipesGenerated * 0.75).toFixed(1)} <span style={{fontSize: '1rem'}}>kq</span></div>
+                <div className="impact-stat-label">CO2 Azalması</div>
+              </div>
+            </div>
+
+            <div className="card" style={{ padding: '2rem' }}>
+              <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>Sizin Nailiyyətləriniz</h3>
+              <div className="badges-container">
+                <div className={`impact-badge ${recipesGenerated >= 1 ? 'unlocked' : ''}`}>
+                  <div className="impact-badge-icon">🌱</div>
+                  <div className="impact-badge-name">Eko Başlanğıc</div>
+                </div>
+                <div className={`impact-badge ${recipesGenerated >= 5 ? 'unlocked' : ''}`}>
+                  <div className="impact-badge-icon">♻️</div>
+                  <div className="impact-badge-name">İsraf Azaldan</div>
+                </div>
+                <div className={`impact-badge ${recipesGenerated >= 10 ? 'unlocked' : ''}`}>
+                  <div className="impact-badge-icon">🌍</div>
+                  <div className="impact-badge-name">Sıfır İsraf Qəhrəmanı</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="global-mission-banner">
+              <div className="impact-stat-label">Qlobal Missiyamız</div>
+              <div className="global-mission-value">{globalImpact.toLocaleString('az-AZ')} kq qida xilas edilib!</div>
+            </div>
+          </section>
 
         </main>
 
