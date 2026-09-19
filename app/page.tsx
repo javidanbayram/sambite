@@ -175,6 +175,11 @@ export default function HomePage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const recipeRef = useRef<HTMLDivElement>(null)
 
+  // Customizer State
+  const [customizationPrompt, setCustomizationPrompt] = useState('')
+  const [customizing, setCustomizing] = useState(false)
+  const [customizeError, setCustomizeError] = useState('')
+
   // Impact Tracker State
   const [recipesGenerated, setRecipesGenerated] = useState(0)
   const [globalImpact, setGlobalImpact] = useState(12450)
@@ -280,7 +285,44 @@ export default function HomePage() {
     } finally {
       setLoading(false)
     }
-  }, [ingredients])
+  }, [getFullIngredients, recipesGenerated])
+
+  const handleCustomize = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!customizationPrompt.trim()) {
+      setCustomizeError('Zəhmət olmasa fərdiləşdirmə istəyinizi yazın.')
+      return
+    }
+
+    setCustomizeError('')
+    setCustomizing(true)
+
+    try {
+      const res = await fetch('/api/customize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          originalRecipe: recipe,
+          customizationPrompt: customizationPrompt.trim(),
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || `Server error (${res.status})`)
+      }
+
+      setRecipe(data.recipe)
+      setCustomizationPrompt('') // Clear on success
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Fərdiləşdirmə zamanı xəta baş verdi.'
+      setCustomizeError(message)
+    } finally {
+      setCustomizing(false)
+    }
+  }, [customizationPrompt, recipe])
 
   return (
     <>
@@ -464,6 +506,41 @@ export default function HomePage() {
                 </div>
                 <div className="recipe-body">
                   <RecipeRenderer text={recipe} />
+                </div>
+                
+                {/* Customizer Section */}
+                <div className="customizer-section">
+                  <form onSubmit={handleCustomize} className="customizer-form">
+                    <label htmlFor="customize-input" className="form-label" style={{ fontSize: '0.8rem' }}>
+                      Resepti dəyişdirmək istəyirsiniz? (məs. Daha acılı et, Kərə yağı əvəzinə nə istifadə edim?)
+                    </label>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <input
+                        id="customize-input"
+                        type="text"
+                        className="customizer-input"
+                        placeholder="İstəyinizi bura yazın..."
+                        value={customizationPrompt}
+                        onChange={(e) => {
+                          setCustomizationPrompt(e.target.value)
+                          if (customizeError) setCustomizeError('')
+                        }}
+                        disabled={customizing}
+                      />
+                      <button
+                        type="submit"
+                        className="btn-secondary"
+                        disabled={customizing || !customizationPrompt.trim()}
+                      >
+                        {customizing ? 'Dəyişdirilir...' : 'Yenilə'}
+                      </button>
+                    </div>
+                    {customizeError && (
+                      <p className="error-message" style={{ fontSize: '0.75rem' }}>
+                        <span aria-hidden="true">⚠</span> {customizeError}
+                      </p>
+                    )}
+                  </form>
                 </div>
               </section>
             </>
