@@ -11,11 +11,10 @@
 
 :root {
   /* Brand Colors */
-  --emerald:        #8CB369; /* Muted Olive */
-  --teal:           #5B8E7D; /* Jungle Teal */
+  --emerald:        #F4A259; /* Sandy Brown */
+  --teal:           #BC4B51; /* Blushed Brick */
   --emerald-light:  #F4E285; /* Light Gold */
-  --teal-dark:      #F4A259; /* Sandy Brown */
-  --brick:          #BC4B51; /* Blushed Brick */
+  --teal-dark:      #5B8E7D; /* Jungle Teal */
 
   /* Neutrals (Light Mode) */
   --bg:             #FAFAFA;
@@ -30,8 +29,8 @@
   --text-muted:     #888888;
 
   /* Gradients */
-  --grad-brand:     linear-gradient(135deg, var(--emerald) 0%, var(--teal) 100%);
-  --grad-glow:      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(140, 179, 105, 0.25), transparent);
+  --grad-brand:     linear-gradient(135deg, var(--emerald-light) 0%, var(--emerald) 100%);
+  --grad-glow:      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(244, 162, 89, 0.25), transparent);
   --grad-card:      linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
 
   /* Spacing */
@@ -54,9 +53,9 @@
 
   /* Shadows (Light Mode) */
   --shadow-card:  0 8px 32px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,1) inset;
-  --shadow-glow:  0 0 40px rgba(140, 179, 105, 0.3), 0 0 80px rgba(91, 142, 125, 0.2);
-  --shadow-btn:   0 4px 16px rgba(91, 142, 125, 0.25);
-  --shadow-btn-hover: 0 8px 24px rgba(91, 142, 125, 0.35);
+  --shadow-glow:  0 0 40px rgba(244, 162, 89, 0.3), 0 0 80px rgba(188, 75, 81, 0.2);
+  --shadow-btn:   0 4px 16px rgba(244, 162, 89, 0.25);
+  --shadow-btn-hover: 0 8px 24px rgba(244, 162, 89, 0.35);
 }
 
 html {
@@ -91,7 +90,7 @@ body {
   transform: translateX(-50%);
   width: 900px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(140, 179, 105, 0.25) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(244, 162, 89, 0.25) 0%, transparent 70%);
   filter: blur(60px);
   animation: glow-pulse 8s ease-in-out infinite alternate;
 }
@@ -173,10 +172,10 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--emerald);
-  border: 1px solid rgba(140, 179, 105, 0.3);
+  border: 1px solid rgba(244, 162, 89, 0.3);
   border-radius: 100px;
   padding: 0.2rem 0.65rem;
-  background: rgba(140, 179, 105, 0.1);
+  background: rgba(244, 162, 89, 0.1);
 }
 
 /* ---------- Main Layout ----------------------------------- */
@@ -314,8 +313,8 @@ body {
 }
 
 .textarea:focus {
-  border-color: rgba(91, 142, 125, 0.5);
-  box-shadow: 0 0 0 3px rgba(91, 142, 125, 0.15), 0 0 20px rgba(91, 142, 125, 0.1);
+  border-color: rgba(244, 162, 89, 0.5);
+  box-shadow: 0 0 0 3px rgba(244, 162, 89, 0.15), 0 0 20px rgba(244, 162, 89, 0.1);
   background: #FFFFFF;
 }
 
@@ -407,12 +406,12 @@ body {
 
 /* ---------- Recipe Card ----------------------------------- */
 .recipe-card {
-  border: 1px solid rgba(140, 179, 105, 0.2);
+  border: 1px solid rgba(244, 162, 89, 0.2);
   border-radius: var(--radius-xl);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card), 0 0 60px rgba(140, 179, 105, 0.1);
+  box-shadow: var(--shadow-card), 0 0 60px rgba(244, 162, 89, 0.1);
   width: 100%;
   max-width: 720px;
   overflow: hidden;
@@ -435,8 +434,8 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 1.5rem var(--spacing-xl);
-  border-bottom: 1px solid rgba(140, 179, 105, 0.15);
-  background: linear-gradient(90deg, rgba(140, 179, 105, 0.1) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(244, 162, 89, 0.15);
+  background: linear-gradient(90deg, rgba(244, 162, 89, 0.1) 0%, transparent 100%);
 }
 
 .recipe-card-icon {
@@ -449,7 +448,7 @@ body {
   justify-content: center;
   font-size: 1.1rem;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(91, 142, 125, 0.3);
+  box-shadow: 0 4px 12px rgba(244, 162, 89, 0.3);
 }
 
 .recipe-card-title-group {
@@ -568,8 +567,8 @@ body {
   font-weight: 500;
   padding: 0.25rem 0.7rem;
   border-radius: 100px;
-  background: rgba(140, 179, 105, 0.1);
-  border: 1px solid rgba(140, 179, 105, 0.2);
+  background: rgba(244, 162, 89, 0.1);
+  border: 1px solid rgba(244, 162, 89, 0.2);
   color: var(--teal);
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, transform 0.15s;
@@ -577,8 +576,8 @@ body {
 }
 
 .chip:hover {
-  background: rgba(140, 179, 105, 0.18);
-  border-color: rgba(140, 179, 105, 0.4);
+  background: rgba(244, 162, 89, 0.18);
+  border-color: rgba(244, 162, 89, 0.4);
   transform: translateY(-1px);
 }
 
