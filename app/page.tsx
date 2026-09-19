@@ -372,7 +372,7 @@ export default function HomePage() {
           <div className="splash-ring splash-ring-2" />
           <div className="splash-ring splash-ring-3" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="" className="splash-logo" />
+          <img src="/sambitelogo.png" alt="" className="splash-logo" />
           <p className="splash-tagline">Süni intellektlə resept yarat</p>
         </div>
       )}
@@ -385,7 +385,7 @@ export default function HomePage() {
         <header className="header" role="banner">
           <a href="/" className="header-logo" aria-label="Sambite home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Sambite" className="header-logo-img" />
+            <img src="/sambitelogo.png" alt="Sambite" className="header-logo-img" />
           </a>
           <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
             <a href="/about" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Haqqımızda</a>
