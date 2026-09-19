@@ -177,6 +177,17 @@ function RecipeRenderer({ text }: { text: string }) {
    Main Page Component
 ------------------------------------------------------- */
 export default function HomePage() {
+  // ── Splash screen ──────────────────────────────────────
+  const [splashVisible, setSplashVisible] = useState(true)
+  const [splashFading, setSplashFading]   = useState(false)
+
+  useEffect(() => {
+    // Start fade-out at 2.5 s, fully hidden at 3 s
+    const fadeTimer = setTimeout(() => setSplashFading(true), 2500)
+    const doneTimer = setTimeout(() => setSplashVisible(false), 3200)
+    return () => { clearTimeout(fadeTimer); clearTimeout(doneTimer) }
+  }, [])
+
   const [ingredients, setIngredients] = useState('')
   const [pantrySelected, setPantrySelected] = useState<Set<string>>(new Set())
   const [dietarySelected, setDietarySelected] = useState<Set<string>>(new Set())
@@ -354,10 +365,22 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ── Splash Screen ─────────────────────────────── */}
+      {splashVisible && (
+        <div className={`splash-overlay ${splashFading ? 'splash-fading' : ''}`} aria-hidden="true">
+          <div className="splash-ring splash-ring-1" />
+          <div className="splash-ring splash-ring-2" />
+          <div className="splash-ring splash-ring-3" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="" className="splash-logo" />
+          <p className="splash-tagline">Süni intellektlə resept yarat</p>
+        </div>
+      )}
+
       {/* Ambient background */}
       <div className="bg-fx" aria-hidden="true" />
 
-      <div className="page-wrapper">
+      <div className={`page-wrapper ${splashVisible && !splashFading ? 'page-hidden' : splashFading ? 'page-revealing' : ''}`}>
         {/* ── Header ── */}
         <header className="header" role="banner">
           <a href="/" className="header-logo" aria-label="Sambite home">
