@@ -730,3 +730,111 @@ body {
   font-family: var(--font-serif);
 }
 
+/* ============================================================
+   Pantry Staples Selector
+   ============================================================ */
+
+.pantry-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pantry-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(140, 179, 105, 0.08);
+  border: 1.5px dashed rgba(140, 179, 105, 0.45);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.pantry-toggle:hover:not(:disabled) {
+  background: rgba(140, 179, 105, 0.15);
+  border-color: var(--emerald);
+  color: var(--text-primary);
+}
+
+.pantry-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pantry-toggle-arrow {
+  margin-left: auto;
+  transition: transform 0.25s ease;
+  font-size: 1.1rem;
+  color: var(--emerald);
+}
+
+.pantry-badge {
+  background: var(--emerald);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+
+.pantry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.pantry-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.pantry-chip:hover:not(:disabled) {
+  border-color: var(--emerald);
+  color: var(--text-primary);
+  background: rgba(140, 179, 105, 0.06);
+  transform: translateY(-1px);
+}
+
+.pantry-chip.selected {
+  background: rgba(140, 179, 105, 0.15);
+  border-color: var(--emerald);
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.pantry-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pantry-check {
+  color: var(--emerald);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+

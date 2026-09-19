@@ -13,6 +13,24 @@ const EXAMPLE_COMBOS = [
 ]
 
 /* -------------------------------------------------------
+   Common pantry / household staples
+------------------------------------------------------- */
+const PANTRY_STAPLES = [
+  { id: 'duz',      label: '🧂 Duz' },
+  { id: 'yag',      label: '🫒 Yağ' },
+  { id: 'kere-yag', label: '🧈 Kərə yağı' },
+  { id: 'istiot',   label: '🌶️ Qara istiot' },
+  { id: 'sarımsaq', label: '🧄 Sarımsaq' },
+  { id: 'soğan',    label: '🧅 Soğan' },
+  { id: 'un',       label: '🌾 Un' },
+  { id: 'yumurta',  label: '🥚 Yumurta' },
+  { id: 'süd',      label: '🥛 Süd' },
+  { id: 'şəkər',    label: '🍬 Şəkər' },
+  { id: 'tomat-s',  label: '🍅 Tomat sousu' },
+  { id: 'limon',    label: '🍋 Limon' },
+]
+
+/* -------------------------------------------------------
    Helpers
 ------------------------------------------------------- */
 function parseRecipe(text: string) {
@@ -143,6 +161,8 @@ function RecipeRenderer({ text }: { text: string }) {
 ------------------------------------------------------- */
 export default function HomePage() {
   const [ingredients, setIngredients] = useState('')
+  const [pantrySelected, setPantrySelected] = useState<Set<string>>(new Set())
+  const [showPantry, setShowPantry] = useState(false)
   const [recipe, setRecipe] = useState('')
   const [loading, setLoading] = useState(false)
   const [fieldError, setFieldError] = useState('')
@@ -176,16 +196,40 @@ export default function HomePage() {
     textareaRef.current?.focus()
   }, [])
 
+  const togglePantry = useCallback((id: string) => {
+    setPantrySelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+    setFieldError('')
+  }, [])
+
+  // Combine textarea + selected pantry items for submission
+  const getFullIngredients = useCallback(() => {
+    const pantryLabels = Array.from(pantrySelected)
+      .map(id => PANTRY_STAPLES.find(s => s.id === id)?.label.replace(/^.*?\s/, '') ?? id)
+    const base = ingredients.trim()
+    if (pantryLabels.length === 0) return base
+    return base ? `${base}, ${pantryLabels.join(', ')}` : pantryLabels.join(', ')
+  }, [ingredients, pantrySelected])
+
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
 
+    const fullIngredients = getFullIngredients()
+
     // Client-side validation
-    if (!ingredients.trim()) {
+    if (!fullIngredients) {
       setFieldError('Resept hazırlamazdan əvvəl ən azı bir ərzaq daxil edin.')
       textareaRef.current?.focus()
       return
     }
-    if (ingredients.trim().length < 3) {
+    if (fullIngredients.length < 3) {
       setFieldError('Daha spesifik ərzaqlar daxil edin (ən azı bir söz).')
       textareaRef.current?.focus()
       return
@@ -200,7 +244,7 @@ export default function HomePage() {
       const res = await fetch('/api/recipe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ingredients: ingredients.trim() }),
+        body: JSON.stringify({ ingredients: fullIngredients }),
       })
 
       const data = await res.json()
@@ -279,7 +323,7 @@ export default function HomePage() {
                       id="ingredients-input"
                       ref={textareaRef}
                       className={`textarea${fieldError ? ' error' : ''}`}
-                      placeholder="məs. yumurta, pendir, bayat çörək, pomidor, yarım soğan..."
+                      placeholder="məs. toyuq döşü, pendir, pomidor, yarım soğan..."
                       value={ingredients}
                       onChange={(e) => {
                         setIngredients(e.target.value)
@@ -298,8 +342,46 @@ export default function HomePage() {
                     </p>
                   ) : (
                     <p id="field-hint" className="form-hint">
-                      Ərzaqları vergüllə ayırın. Təməl məhsulların (duz, istiot, yağ) olduğu fərz edilir.
+                      Əsas ərzaqları yazın. Evdəki adi məhsulları aşağıdan seçin.
                     </p>
+                  )}
+                </div>
+
+                {/* Pantry staples selector */}
+                <div className="pantry-section">
+                  <button
+                    type="button"
+                    className="pantry-toggle"
+                    onClick={() => setShowPantry(v => !v)}
+                    aria-expanded={showPantry}
+                    disabled={loading}
+                  >
+                    <span>🏠 Evdə nə var?</span>
+                    <span className="pantry-toggle-arrow" style={{ transform: showPantry ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
+                    {pantrySelected.size > 0 && (
+                      <span className="pantry-badge">{pantrySelected.size} seçilib</span>
+                    )}
+                  </button>
+
+                  {showPantry && (
+                    <div className="pantry-grid" role="group" aria-label="Evdəki adi məhsullar">
+                      {PANTRY_STAPLES.map(staple => {
+                        const isSelected = pantrySelected.has(staple.id)
+                        return (
+                          <button
+                            key={staple.id}
+                            type="button"
+                            className={`pantry-chip${isSelected ? ' selected' : ''}`}
+                            onClick={() => togglePantry(staple.id)}
+                            disabled={loading}
+                            aria-pressed={isSelected}
+                          >
+                            {isSelected && <span className="pantry-check">✓</span>}
+                            {staple.label}
+                          </button>
+                        )
+                      })}
+                    </div>
                   )}
                 </div>
 
