@@ -63,6 +63,12 @@ Hazırlıq: [X] dəq · Bişirmə: [Y] dəq · Cəmi: [Z] dəq
 - [ingredient 2 with quantity]
 (list ONLY the ingredients from the user's list that you are actually using)
 
+**Qida Dəyəri və Sağlamlıq**
+- Kalori: [Estimated total calories] kcal
+- Zülal: [Estimated protein] q
+- Karbohidrat: [Estimated carbs] q
+- Uyğunluq: [Dietary tags, e.g., Veqan, Qlütensiz, Keto, Az kalorili]
+
 **Addım-addım Təlimatlar**
 1. [First step – clear and concise]
 2. [Second step]

@@ -488,23 +488,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="card" style={{ padding: '2rem' }}>
-              <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)', fontSize: '1.1rem' }}>Sizin Nailiyyətləriniz</h3>
-              <div className="badges-container">
-                <div className={`impact-badge ${recipesGenerated >= 1 ? 'unlocked' : ''}`}>
-                  <div className="impact-badge-icon">🌱</div>
-                  <div className="impact-badge-name">Eko Başlanğıc</div>
-                </div>
-                <div className={`impact-badge ${recipesGenerated >= 5 ? 'unlocked' : ''}`}>
-                  <div className="impact-badge-icon">♻️</div>
-                  <div className="impact-badge-name">İsraf Azaldan</div>
-                </div>
-                <div className={`impact-badge ${recipesGenerated >= 10 ? 'unlocked' : ''}`}>
-                  <div className="impact-badge-icon">🌍</div>
-                  <div className="impact-badge-name">Sıfır İsraf Qəhrəmanı</div>
-                </div>
-              </div>
-            </div>
 
             <div className="global-mission-banner">
               <div className="impact-stat-label">Qlobal Missiyamız</div>
