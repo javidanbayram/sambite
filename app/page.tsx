@@ -52,61 +52,88 @@ function IconChef() {
    Recipe Renderer – renders the Gemini output nicely
 ------------------------------------------------------- */
 function RecipeRenderer({ text }: { text: string }) {
+  const [showSteps, setShowSteps] = useState(false)
+  
+  useEffect(() => {
+    setShowSteps(false)
+  }, [text])
+
   const lines = text.split('\n')
+  
+  // Find where the steps start
+  const stepsIndex = lines.findIndex(line => line.includes('Addım-addım Təlimatlar'))
+  const hasSteps = stepsIndex !== -1
+  
+  const visibleLines = (showSteps || !hasSteps) ? lines : lines.slice(0, stepsIndex)
+
+  const renderLine = (line: string, i: number) => {
+    // Bold section headers (lines starting with ** or numbers like "1." "2." "3.")
+    const isSectionNum = /^\d+\.\s/.test(line.trim())
+    const isBold = line.startsWith('**') && line.endsWith('**')
+    const isHeader = line.startsWith('#')
+    const isEmpty = line.trim() === ''
+
+    if (isEmpty) return <br key={i} />
+
+    if (isHeader) {
+      const content = line.replace(/^#+\s*/, '')
+      return (
+        <h2 key={i} style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', fontSize: '1.35rem', margin: '1.25rem 0 0.5rem' }}>
+          {content}
+        </h2>
+      )
+    }
+
+    if (isBold) {
+      return (
+        <p key={i} style={{ fontWeight: 700, color: 'var(--text-primary)', margin: '1rem 0 0.25rem' }}>
+          {line.replace(/\*\*/g, '')}
+        </p>
+      )
+    }
+
+    if (isSectionNum) {
+      return (
+        <p key={i} style={{ fontWeight: 700, color: 'var(--emerald-light)', margin: '1.2rem 0 0.25rem', fontSize: '0.85rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          {line.trim()}
+        </p>
+      )
+    }
+
+    // Bullet points
+    if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
+      const content = line.trim().replace(/^[-•]\s/, '')
+      return (
+        <p key={i} style={{ paddingLeft: '1rem', position: 'relative', margin: '0.3rem 0' }}>
+          <span style={{ position: 'absolute', left: 0, color: 'var(--emerald)' }}>›</span>
+          {content}
+        </p>
+      )
+    }
+
+    return (
+      <p key={i} style={{ margin: '0.3rem 0' }}>
+        {line}
+      </p>
+    )
+  }
 
   return (
     <div className="recipe-content" role="article" aria-label="Generated recipe">
-      {lines.map((line, i) => {
-        // Bold section headers (lines starting with ** or numbers like "1." "2." "3.")
-        const isSectionNum = /^\d+\.\s/.test(line.trim())
-        const isBold = line.startsWith('**') && line.endsWith('**')
-        const isHeader = line.startsWith('#')
-        const isEmpty = line.trim() === ''
-
-        if (isEmpty) return <br key={i} />
-
-        if (isHeader) {
-          const content = line.replace(/^#+\s*/, '')
-          return (
-            <h2 key={i} style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-primary)', fontSize: '1.35rem', margin: '1.25rem 0 0.5rem' }}>
-              {content}
-            </h2>
-          )
-        }
-
-        if (isBold) {
-          return (
-            <p key={i} style={{ fontWeight: 700, color: 'var(--text-primary)', margin: '1rem 0 0.25rem' }}>
-              {line.replace(/\*\*/g, '')}
-            </p>
-          )
-        }
-
-        if (isSectionNum) {
-          return (
-            <p key={i} style={{ fontWeight: 700, color: 'var(--emerald-light)', margin: '1.2rem 0 0.25rem', fontSize: '0.85rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              {line.trim()}
-            </p>
-          )
-        }
-
-        // Bullet points
-        if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
-          const content = line.trim().replace(/^[-•]\s/, '')
-          return (
-            <p key={i} style={{ paddingLeft: '1rem', position: 'relative', margin: '0.3rem 0' }}>
-              <span style={{ position: 'absolute', left: 0, color: 'var(--emerald)' }}>›</span>
-              {content}
-            </p>
-          )
-        }
-
-        return (
-          <p key={i} style={{ margin: '0.3rem 0' }}>
-            {line}
-          </p>
-        )
-      })}
+      {visibleLines.map((line, i) => renderLine(line, i))}
+      
+      {hasSteps && !showSteps && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+          <button 
+            type="button" 
+            className="btn-primary" 
+            onClick={() => setShowSteps(true)}
+            style={{ width: '100%', maxWidth: '300px' }}
+          >
+            Addım-addım təlimatlar
+          </button>
+        </div>
+      )}
     </div>
   )
 }

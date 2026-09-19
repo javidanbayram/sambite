@@ -80,7 +80,7 @@ Be warm, precise, and inspiring. Make the user feel like a professional chef.`
       config: {
         temperature: 0.85,
         topP: 0.95,
-        maxOutputTokens: 2048,
+        maxOutputTokens: 8192,
       },
     })
 
