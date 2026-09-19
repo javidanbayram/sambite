@@ -8,7 +8,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Sambite – AI Kulinariya Şefi',
   description:
-    'Soyuducunuzda qalanları şedevrə çevirin. Sambite, əlinizdə olan istənilən ərzaqlardan qurman reseptləri yaratmaq üçün Google Gemini AI istifadə edir.',
+    'Soyuducunuzdakıları möhtəşəm ziyafətə çevirin. Sambite, əlinizdə olan istənilən ərzaqlardan qurman reseptləri yaratmaq üçün süni intellekt istifadə edir.',
   keywords: 'Süni intellekt resepti, soyuducu qalıqları, kulinariya AI, resept yaradıcısı, Sambite',
   icons: {
     icon: '/favicon.svg',

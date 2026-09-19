@@ -190,7 +190,9 @@ export default function HomePage() {
             </div>
             <span className="header-logo-name">Sambite</span>
           </a>
-          <div className="header-badge" aria-label="Gemini AI tərəfindən dəstəklənir">Gemini AI tərəfindən dəstəklənir</div>
+          <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <a href="/about" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Haqqımızda</a>
+          </nav>
         </header>
 
         {/* ── Main ── */}
@@ -200,11 +202,11 @@ export default function HomePage() {
           <section className="hero" aria-labelledby="hero-title">
             <div className="hero-eyebrow" role="text">
               <span className="hero-eyebrow-dot" aria-hidden="true" />
-              AI Kulinariya Şefi · Gemini 3.6 Flash
+              AI Kulinariya Şefi
             </div>
             <h1 className="hero-title" id="hero-title">
-              Soyuducunuzu çevirin{' '}
-              <span className="hero-title-accent">şedevrə.</span>
+              Soyuducunuzdakıları{' '}
+              <span className="hero-title-accent">möhtəşəm ziyafətə çevirin.</span>
             </h1>
             <p className="hero-tagline">
               Əlinizdə olan ərzaqları yazın və qoyun Sambite-in AI şefi saniyələr içində sizə qurman resepti hazırlasın.
@@ -313,7 +315,7 @@ export default function HomePage() {
                   <div className="recipe-card-icon" aria-hidden="true">🍽️</div>
                   <div className="recipe-card-title-group">
                     <span className="recipe-card-label">Sambite Mətbəxi</span>
-                    <span className="recipe-card-subtitle">Gemini 3.6 Flash tərəfindən hazırlanıb</span>
+                    <span className="recipe-card-subtitle">Süni İntellekt tərəfindən hazırlanıb</span>
                   </div>
                 </div>
                 <div className="recipe-body">
@@ -328,8 +330,7 @@ export default function HomePage() {
         {/* ── Footer ── */}
         <footer className="footer" role="contentinfo">
           © {new Date().getFullYear()} Sambite ·{' '}
-          <span>Süni intellektlə dəstəklənən kulinariya sehri</span> ·{' '}
-          Hazırlanıb <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer">Google Gemini</a> ilə
+          Süni intellektlə dəstəklənən kulinariya sehri
         </footer>
       </div>
     </>
