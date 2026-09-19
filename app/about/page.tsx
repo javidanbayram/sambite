@@ -8,22 +8,12 @@ export default function AboutPage() {
         {/* ── Header ── */}
         <header className="header" role="banner">
           <a href="/" className="header-logo" aria-label="Sambite home">
-            <div className="header-logo-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2C8.5 2 5 5 5 9c0 2.5 1.5 4.5 3.5 5.5L8 22h8l-.5-7.5C17.5 13.5 19 11.5 19 9c0-4-3.5-7-7-7z" fill="url(#g1)" />
-                <path d="M9 2v5M12 2v5M15 2v5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" strokeLinecap="round" />
-                <defs>
-                  <linearGradient id="g1" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#10b981" />
-                    <stop offset="1" stopColor="#0d9488" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <span className="header-logo-name">Sambite</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sambitelogo.png" alt="Sambite" className="header-logo-img" />
           </a>
-          <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-            <a href="/" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Ana Səhifə</a>
+          <nav className="header-nav">
+            <a href="/" className="nav-link">Ana Səhifə</a>
+            <a href="/about" className="nav-link active">Haqqımızda</a>
           </nav>
         </header>
 
