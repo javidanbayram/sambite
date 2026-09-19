@@ -65,7 +65,7 @@
 
 /* ── Logo ── */
 .splash-logo {
-  width: min(190px, 50vw);
+  width: min(380px, 75vw);
   height: auto;
   object-fit: contain;
   /* Step 1: wipe reveal left→right */
