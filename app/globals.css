@@ -3,116 +3,108 @@
    ============================================================ */
 
 /* ============================================================
-   Splash Screen
+   Splash Screen — Premium Clean
    ============================================================ */
 
-/* Keyframes */
-@keyframes splash-logo-pop {
-  0%   { opacity: 0; transform: scale(0.7);  filter: blur(12px); }
-  60%  { opacity: 1; transform: scale(1.04); filter: blur(0);    }
-  80%  { transform: scale(0.98); }
-  100% { opacity: 1; transform: scale(1);    }
+/* ── Keyframes ── */
+
+/* Logo: left-to-right wipe reveal */
+@keyframes splash-logo-wipe {
+  0%   { clip-path: inset(0 102% 0 0); }
+  100% { clip-path: inset(0 0%   0 0); }
+}
+/* Logo: springy micro-settle after wipe */
+@keyframes splash-logo-settle {
+  0%   { transform: scale(1.06); }
+  100% { transform: scale(1);    }
+}
+/* Branded gradient line draws from left */
+@keyframes splash-line-draw {
+  0%   { transform: scaleX(0); opacity: 0; }
+  12%  { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+/* Tagline fades up */
+@keyframes splash-tagline-up {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0);   }
+}
+/* Page reveals after splash */
+@keyframes page-fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-@keyframes splash-tagline-in {
-  0%   { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0);    }
-}
-
-@keyframes splash-ring-expand {
-  0%   { transform: scale(0.5); opacity: 0.6; }
-  100% { transform: scale(2.2); opacity: 0;   }
-}
-
-@keyframes splash-glow-pulse {
-  0%, 100% { opacity: 0.35; transform: scale(1);    }
-  50%       { opacity: 0.6;  transform: scale(1.15); }
-}
-
-@keyframes page-reveal {
-  0%   { opacity: 0; transform: translateY(16px); filter: blur(6px); }
-  100% { opacity: 1; transform: translateY(0);    filter: blur(0);   }
-}
-
-/* Overlay — deep dark gradient so transparent logo always pops */
+/* ── Overlay ── */
 .splash-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: linear-gradient(145deg, #0f1a14 0%, #101c1b 50%, #150e10 100%);
+  background: #ffffff;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.6rem;
-  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
+  /* Iris (circle) collapse on exit */
+  clip-path: circle(150% at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: clip-path;
 }
 
 .splash-overlay.splash-fading {
-  opacity: 0;
-  transform: scale(1.03);
+  clip-path: circle(0% at 50% 50%);
   pointer-events: none;
 }
 
-/* Soft ambient glow behind logo */
-.splash-overlay::before {
-  content: '';
-  position: absolute;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(140,179,105,0.18) 0%, transparent 70%);
-  animation: splash-glow-pulse 2.4s ease-in-out infinite;
+/* ── Content group ── */
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
 }
 
-/* Expanding ripple rings */
-.splash-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1.5px solid rgba(140, 179, 105, 0.35);
-  animation: splash-ring-expand 3s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
-  will-change: transform, opacity;
-}
-.splash-ring-1 { width: 160px; height: 160px; animation-delay: 0s;   }
-.splash-ring-2 { width: 160px; height: 160px; animation-delay: 0.9s; border-color: rgba(91,142,125,0.25);  }
-.splash-ring-3 { width: 160px; height: 160px; animation-delay: 1.8s; border-color: rgba(188,75,81,0.18);   }
-
-/* Logo */
+/* ── Logo ── */
 .splash-logo {
-  position: relative;
-  z-index: 2;
-  width: min(200px, 52vw);
+  width: min(190px, 50vw);
   height: auto;
   object-fit: contain;
-  animation: splash-logo-pop 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-  filter: drop-shadow(0 0 28px rgba(140,179,105,0.4))
-          drop-shadow(0 8px 24px rgba(0,0,0,0.5));
-  will-change: transform, opacity, filter;
+  /* Step 1: wipe reveal left→right */
+  animation:
+    splash-logo-wipe   0.7s cubic-bezier(0.4, 0, 0.2, 1)      0.2s  both,
+    splash-logo-settle 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)  0.9s  both;
+  will-change: clip-path, transform;
 }
 
-/* Tagline */
+/* ── Branded line ── */
+.splash-line {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, #8CB369 0%, #5B8E7D 50%, #BC4B51 100%);
+  border-radius: 2px;
+  transform-origin: left center;
+  animation: splash-line-draw 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.88s both;
+  will-change: transform, opacity;
+}
+
+/* ── Tagline ── */
 .splash-tagline {
-  position: relative;
-  z-index: 2;
   font-family: var(--font-sans, sans-serif);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(140, 179, 105, 0.85);
-  animation: splash-tagline-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+  color: #737373;
+  animation: splash-tagline-up 0.55s cubic-bezier(0.4, 0, 0.2, 1) 1.1s both;
 }
 
-/* Page — hidden while splash shows, revealed after */
+/* ── Page states ── */
 .page-hidden {
   opacity: 0;
   pointer-events: none;
 }
 
 .page-revealing {
-  animation: page-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-fade-in 0.75s ease both;
 }
 
 /* ---------- Reset & Base ---------------------------------- */

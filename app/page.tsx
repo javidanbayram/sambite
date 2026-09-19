@@ -182,9 +182,8 @@ export default function HomePage() {
   const [splashFading, setSplashFading]   = useState(false)
 
   useEffect(() => {
-    // Start fade-out at 2.5 s, fully hidden at 3 s
-    const fadeTimer = setTimeout(() => setSplashFading(true), 2500)
-    const doneTimer = setTimeout(() => setSplashVisible(false), 3200)
+    const fadeTimer = setTimeout(() => setSplashFading(true), 2300)
+    const doneTimer = setTimeout(() => setSplashVisible(false), 3100)
     return () => { clearTimeout(fadeTimer); clearTimeout(doneTimer) }
   }, [])
 
@@ -368,12 +367,12 @@ export default function HomePage() {
       {/* ── Splash Screen ─────────────────────────────── */}
       {splashVisible && (
         <div className={`splash-overlay ${splashFading ? 'splash-fading' : ''}`} aria-hidden="true">
-          <div className="splash-ring splash-ring-1" />
-          <div className="splash-ring splash-ring-2" />
-          <div className="splash-ring splash-ring-3" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/sambitelogo.png" alt="" className="splash-logo" />
-          <p className="splash-tagline">Süni intellektlə resept yarat</p>
+          <div className="splash-content">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sambitelogo.png" alt="" className="splash-logo" />
+            <div className="splash-line" />
+            <p className="splash-tagline">Süni intellektlə resept yarat</p>
+          </div>
         </div>
       )}
 
