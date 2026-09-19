@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── 2. Parse & validate request body ─────────────────
-  let body: { ingredients?: string }
+  let body: { ingredients?: string; dietaryTags?: string[] }
   try {
     body = await req.json()
   } catch {
@@ -37,6 +37,11 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  const dietaryTags = body.dietaryTags || []
+  const dietaryRule = dietaryTags.length > 0
+    ? `\n\nDIETARY RESTRICTIONS — CRITICAL:\nThe user has specified the following dietary restrictions: ${dietaryTags.join(', ')}.\nThe recipe MUST strictly adhere to these diets. Do NOT include any ingredient, even from the list above, if it violates these dietary restrictions.`
+    : ''
+
   // ── 3. Build the Sambite chef prompt ─────────────────
   const prompt = `You are the head chef at Sambite Kitchen — a prestigious culinary studio that specialises in transforming humble, leftover ingredients into extraordinary gourmet dishes. You are creative, encouraging, and knowledgeable about global cuisines.
 
@@ -44,7 +49,7 @@ A user has EXACTLY these ingredients available at home:
 ${ingredients}
 
 ⚠️ STRICT RULE — VERY IMPORTANT:
-You must ONLY use the ingredients listed above. Do NOT add any other ingredients — not oil, not butter, not salt, not vinegar, not water — unless they are explicitly in the list above. If the user did not list oil, the recipe must be completely oil-free. If they did not list salt, do not use salt. Respect the user's ingredient list absolutely and completely.
+You must ONLY use the ingredients listed above. Do NOT add any other ingredients — not oil, not butter, not salt, not vinegar, not water — unless they are explicitly in the list above. If the user did not list oil, the recipe must be completely oil-free. If they did not list salt, do not use salt. Respect the user's ingredient list absolutely and completely.${dietaryRule}
 
 Create a delicious, creative, and easy-to-follow recipe using ONLY these ingredients.
 

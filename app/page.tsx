@@ -3,6 +3,18 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 
 /* -------------------------------------------------------
+   Dietary Preferences
+------------------------------------------------------- */
+const DIETARY_OPTIONS = [
+  { id: 'Veqan', label: 'Veqan' },
+  { id: 'Vegeterian', label: 'Vegeterian' },
+  { id: 'Qlütensiz', label: 'Qlütensiz' },
+  { id: 'Halal', label: 'Halal' },
+  { id: 'Keto', label: 'Keto' },
+  { id: 'Südsüz', label: 'Südsüz' },
+]
+
+/* -------------------------------------------------------
    Suggested ingredient chips for quick demo
 ------------------------------------------------------- */
 const EXAMPLE_COMBOS = [
@@ -167,6 +179,7 @@ function RecipeRenderer({ text }: { text: string }) {
 export default function HomePage() {
   const [ingredients, setIngredients] = useState('')
   const [pantrySelected, setPantrySelected] = useState<Set<string>>(new Set())
+  const [dietarySelected, setDietarySelected] = useState<Set<string>>(new Set())
   const [showPantry, setShowPantry] = useState(false)
   const [recipe, setRecipe] = useState('')
   const [loading, setLoading] = useState(false)
@@ -219,6 +232,18 @@ export default function HomePage() {
     setFieldError('')
   }, [])
 
+  const toggleDietary = useCallback((id: string) => {
+    setDietarySelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
+
   // Combine textarea + selected pantry items for submission
   const getFullIngredients = useCallback(() => {
     const pantryLabels = Array.from(pantrySelected)
@@ -258,7 +283,10 @@ export default function HomePage() {
       const res = await fetch('/api/recipe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ingredients: fullIngredients }),
+        body: JSON.stringify({ 
+          ingredients: fullIngredients,
+          dietaryTags: Array.from(dietarySelected)
+        }),
       })
 
       const data = await res.json()
@@ -434,6 +462,34 @@ export default function HomePage() {
                       })}
                     </div>
                   )}
+                </div>
+
+                {/* Dietary Preferences */}
+                <div style={{ marginTop: '0.5rem' }}>
+                  <p className="form-label" id="dietary-label">Pəhriz / Qida Seçimləri (İstəyə bağlı)</p>
+                  <div className="chips" role="group" aria-labelledby="dietary-label">
+                    {DIETARY_OPTIONS.map((diet) => {
+                      const isSelected = dietarySelected.has(diet.id)
+                      return (
+                        <button
+                          key={diet.id}
+                          type="button"
+                          className={`chip ${isSelected ? 'selected' : ''}`}
+                          style={{
+                            background: isSelected ? 'rgba(140, 179, 105, 0.25)' : undefined,
+                            borderColor: isSelected ? 'rgba(140, 179, 105, 0.6)' : undefined,
+                            color: isSelected ? 'var(--teal-dark)' : undefined
+                          }}
+                          onClick={() => toggleDietary(diet.id)}
+                          disabled={loading}
+                          aria-pressed={isSelected}
+                        >
+                          {isSelected && <span style={{ marginRight: '4px' }}>✓</span>}
+                          {diet.label}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
 
                 {/* Quick-fill chips */}
