@@ -16,18 +16,23 @@ const EXAMPLE_COMBOS = [
    Common pantry / household staples
 ------------------------------------------------------- */
 const PANTRY_STAPLES = [
-  { id: 'duz',      label: '🧂 Duz' },
-  { id: 'yag',      label: '🫒 Yağ' },
-  { id: 'kere-yag', label: '🧈 Kərə yağı' },
-  { id: 'istiot',   label: '🌶️ Qara istiot' },
-  { id: 'sarımsaq', label: '🧄 Sarımsaq' },
-  { id: 'soğan',    label: '🧅 Soğan' },
-  { id: 'un',       label: '🌾 Un' },
-  { id: 'yumurta',  label: '🥚 Yumurta' },
-  { id: 'süd',      label: '🥛 Süd' },
-  { id: 'şəkər',    label: '🍬 Şəkər' },
-  { id: 'tomat-s',  label: '🍅 Tomat sousu' },
-  { id: 'limon',    label: '🍋 Limon' },
+  { id: 'duz',       label: '🧂 Duz' },
+  { id: 'yag',       label: '🫒 Yağ' },
+  { id: 'kere-yag',  label: '🧈 Kərə yağı' },
+  { id: 'istiot',    label: '🌶️ Qara istiot' },
+  { id: 'sirkə',     label: '🥗 Sirkə' },
+  { id: 'sarımsaq',  label: '🧄 Sarımsaq' },
+  { id: 'soğan',     label: '🧅 Soğan' },
+  { id: 'un',        label: '🌾 Un' },
+  { id: 'yumurta',   label: '🥚 Yumurta' },
+  { id: 'süd',       label: '🥛 Süd' },
+  { id: 'şəkər',     label: '🍬 Şəkər' },
+  { id: 'tomat-s',   label: '🍅 Tomat sousu' },
+  { id: 'tomat-x',   label: '🥫 Tomat pastəsi' },
+  { id: 'limon',     label: '🍋 Limon' },
+  { id: 'soya-sous', label: '🌶 Soya sousu' },
+  { id: 'bal',       label: '🍯 Bal' },
+  { id: 'xardal',   label: '🌿 Xardal' },
 ]
 
 /* -------------------------------------------------------
@@ -212,7 +217,11 @@ export default function HomePage() {
   // Combine textarea + selected pantry items for submission
   const getFullIngredients = useCallback(() => {
     const pantryLabels = Array.from(pantrySelected)
-      .map(id => PANTRY_STAPLES.find(s => s.id === id)?.label.replace(/^.*?\s/, '') ?? id)
+      .map(id => {
+        const staple = PANTRY_STAPLES.find(s => s.id === id)
+        // Strip leading emoji + space to get the plain Azerbaijani name
+        return staple ? staple.label.replace(/^[\p{Emoji}\s]+/u, '').trim() : id
+      })
     const base = ingredients.trim()
     if (pantryLabels.length === 0) return base
     return base ? `${base}, ${pantryLabels.join(', ')}` : pantryLabels.join(', ')
